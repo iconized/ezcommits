@@ -2,5 +2,21 @@
 
 
 # Documentation: https://gkarthiks.github.io/quick-commands-cheat-sheet/bash_command.html
-NOCOLOR=''
-RED=''
+
+Black=''
+DarkGray=''
+LightGray=''
+Red=''
+LightRed=''
+Green=''
+LightGreen=''
+Brown=''
+Yellow=''
+Blue=''
+LightBlue=''
+Purple=''
+LightPurple=''
+Cyan=''
+LightCyan=''
+White=''
+
