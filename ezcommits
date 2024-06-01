@@ -1,0 +1,61 @@
+#!/bin/bash
+
+
+# Documentation: https://gkarthiks.github.io/quick-commands-cheat-sheet/bash_command.html
+
+Black=''
+DarkGray=''
+LightGray=''
+Red=''
+LightRed=''
+Green=''
+LightGreen=''
+Brown=''
+Yellow=''
+Blue=''
+LightBlue=''
+Purple=''
+LightPurple=''
+Cyan=''
+LightCyan=''
+White=''
+NoColor=''
+
+if [[ -t 1 ]]; then
+    Black='\033[0;30m'
+    DarkGray='\033[1;30m'
+    LightGray='\033[0;37m'
+    Red='\033[0;31m'
+    LightRed='\033[1;31m'
+    Green='\033[0;32m'
+    LightGreen='\033[1;32m'
+    Brown='\033[0;33m'
+    Yellow='\033[1;33m'
+    Blue='\033[0;34m'
+    LightBlue='\033[1;34m'
+    Purple='\033[0;35m'
+    LightPurple='\033[1;35m'
+    Cyan='\033[0;36m'
+    LightCyan='\033[1;36m'
+    White='\033[1;37m'
+    NoColor='\033[0m'
+fi
+
+# Installation Path
+INSTALL="$HOME/.ezcommits/bin/ezcommits"
+
+#Current Version
+CURRENT_VERSION="v1.0.0"
+
+#Latest Version
+LATEST_VERSION="v1.0.0"
+
+# Upgrading (If applicable/found)
+if [[ $1 == "--upgrade" || $1 == "-u" ]]; then
+    if [[ $CURRENT_VERSION == $LATEST_VERSION ]]; then
+        echo -e "${Green}Latest version is already installed :)"
+    else
+        echo -e ""
+    fi
+    exit 0
+fi
