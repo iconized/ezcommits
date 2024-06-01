@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Author        : Abhiraj Roy
-# Author URL    : https://iconized,github.io
 
-# Supported for: Arch Based Linux Distribution.
-
+# Documentation: https://gkarthiks.github.io/quick-commands-cheat-sheet/bash_command.html
+NOCOLOR=''
+RED=''
