@@ -1,6 +1,7 @@
 #!/bin/bash
 
 
+# define variables containing escape sequences for ANSI color codes
 # Documentation: https://gkarthiks.github.io/quick-commands-cheat-sheet/bash_command.html
 
 Black=''
@@ -21,6 +22,7 @@ LightCyan=''
 White=''
 NoColor=''
 
+# checks if file descriptor 1 (stdout) is associated with a terminal
 if [[ -t 1 ]]; then
     Black='\033[0;30m'
     DarkGray='\033[1;30m'
@@ -41,21 +43,70 @@ if [[ -t 1 ]]; then
     NoColor='\033[0m'
 fi
 
-# Installation Path
+# sets the installation path for the ezcommits script.
 INSTALL="$HOME/.ezcommits/bin/ezcommits"
 
-#Current Version
+# defines the current version of the ezcommits script.
 CURRENT_VERSION="v1.0.0"
 
-#Latest Version
+# defines the latest version of the ezcommits script.
 LATEST_VERSION="v1.0.0"
 
-# Upgrading (If applicable/found)
-if [[ $1 == "--upgrade" || $1 == "-u" ]]; then
+# the script checks if an update is available and performs the update if necessary
+if [[ $1 == "--update" || $1 == "-u" ]]; then
+    # checks if the current version matches the latest version.
     if [[ $CURRENT_VERSION == $LATEST_VERSION ]]; then
+        # informs the user that the latest version is already installed.
         echo -e "${Green}Latest version is already installed :)"
     else
-        echo -e ""
+        echo -e "${Cyan}Update found! Version: ${LATEST_VERSION}"
+        echo -e "${Green}Updating [${CURRENT_VERSION}➜${LATEST_VERSION}]"
+
+        # checks if the ezcommits script is installed in the system-wide location /usr/bin/ezcommits. 
+        if [[ $(which ezcommits) == "/usr/bin/ezcommits" ]]; then
+            # if it is, the script prompts the user to run the update command with sudo.
+            echo -e "${Red}You must run this as sudo!"
+            # downloads the latest version of the ezcommits script from GitHub and installs it in the specified installation path
+            curl -s https://raw.githubusercontent.com/iconized/ezcommits/master/ezcommits > "/usr/bin/ezcommits" && echo -e "${Green}Updated :)${NoColor}"
+        else
+            curl -s https://raw.githubusercontent.com/iconized/ezcommits/master/ezcommits > $INSTALL && echo -e "${Green}Updated :)${NoColor}"
+        fi
     fi
+    # exits the script with a success status code
     exit 0
 fi
+
+# checks if the first command-line argument is either --version or -v
+if [[ $1 == "--version" || $1 == "-v" ]]; then
+    # if it is, the script prints the current version of ezcommits.
+    echo -e "${White}ezcommits${NoColor} $CURRENT_VERSION"
+    exit 0
+fi
+
+# checks if the first command-line argument is either --help or -h
+if [[ $1 == "--help" || $1 == "-h" ]]; then
+    echo -e "${White}commit${NoColor} $CURRENT_VERSION"
+    echo -e "${White}Usage:${NoColor} commit [options]"
+    echo -e "${White}Options:${NoColor}"
+    echo -e "  -h, --help\t\t\tShow help message"
+    echo -e "  -v, --version\t\t\tShow version"
+    echo -e "  -u, --update\t\t\tUpdate ezcommits"
+    exit 0
+fi
+
+# checks if the current version does not match the latest version.
+if [[ $CURRENT_VERSION != $LATEST_VERSION ]]; then
+    # if they are different, it informs the user that an update is available.
+    echo "Update Found! ($LATEST_VERSION)"
+    # informs the user how to update to the latest version if one is available.
+    echo -e "${White}ezcommits --update${NoColor} to install the latest version!"
+fi
+
+SIGNED_OFF=""
+
+# Documentation : https://github.com/charmbracelet/gum
+gum confirm "Stage changes?" --selected.background="80" && git add . && echo -e "Changes Staged🥳"
+gum confirm "Add Signed Off by in the commit message body?" --selected.background="80" && SIGNED_OFF="-s"
+
+# Copy: https://github.com/charmbracelet/gum?tab=readme-ov-file#tutorial
+EZCOMMITS_TYPE=$(gum choose "fix" "feat" "docs" "style" "refactor" "test" "chore" "revert")
