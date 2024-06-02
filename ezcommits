@@ -113,7 +113,7 @@ gum confirm "Add Signed Off by in the commit message body?" --selected.backgroun
 
 # Copy: https://github.com/charmbracelet/gum?tab=readme-ov-file#tutorial
 # prompts the user to choose a commit type from the given options using the gum choose command
-EZCOMMITS_TYPE=$(gum choose "fix" "feat" "docs" "style" "refactor" "test" "chore" "revert" --cursor.foreground "#00FFFF")
+EZCOMMITS_TYPE=$(gum choose "🦾ci" "🎉init" "🐛fix" "✨feat" "📕docs" "🎨style" "⚡perf" "♻️refactor" "🧪test" "🗑️chore" "⏪revert" "🚧wip" "🔒security" --cursor.foreground "#00FFFF")
 
 # prompts the user to input a scope using the gum input command,
 SCOPE=$(gum input --cursor.foreground "#00FFFF" --placeholder "scope")
@@ -123,10 +123,10 @@ SCOPE=$(gum input --cursor.foreground "#00FFFF" --placeholder "scope")
 test -n "$SCOPE" && SCOPE="($SCOPE)"
 
 # to input a summary for the change
-SUMMARY=$(gum input --cursor.foreground "#00FFFF" --value "$EZCOMMITS_TYPE$SCOPE: " --placeholder "Summary of this change")
+SUMMARY=$(gum input --cursor.foreground "#00FFFF" --value "$EZCOMMITS_TYPE$SCOPE: " --placeholder "Summary of this change?")
 
 # to write a description for the change
-DESCRIPTION=$(gum write --cursor.foreground "#00FFFF" --placeholder "Details of this change (CTRL+D to finish)")
+DESCRIPTION=$(gum write --cursor.foreground "#00FFFF" --placeholder "Details of this change?")
 
 # it confirms the changes
 gum confirm "Commit changes?" --selected.background="80" && git commit $SIGNED_OFF -m "$SUMMARY" -m "$DESCRIPTION" && echo -e "${Green}Successfully Commit Changes :)${NoColor}"
