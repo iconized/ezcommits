@@ -101,15 +101,33 @@ if [[ $CURRENT_VERSION != $LATEST_VERSION ]]; then
     echo -e "${White}ezcommits --update${NoColor} to install the latest version!"
 fi
 
+# this variable will ask user whether the commit will be signed off or not.
 SIGNED_OFF=""
 
 # Documentation : https://github.com/charmbracelet/gum
+# prompts the user with a confirmation message "Stage changes?" using the gum command from the gum package
+# if the user confirms (presses Enter), it executes the commands after &&
 gum confirm "Stage changes?" --selected.background="80" && git add . && echo -e "Changes Staged🥳"
+# if the user confirms, it sets the SIGNED_OFF variable to "-s", indicating that the commit will be signed off.
 gum confirm "Add Signed Off by in the commit message body?" --selected.background="80" && SIGNED_OFF="-s"
 
 # Copy: https://github.com/charmbracelet/gum?tab=readme-ov-file#tutorial
+# prompts the user to choose a commit type from the given options using the gum choose command
 EZCOMMITS_TYPE=$(gum choose "fix" "feat" "docs" "style" "refactor" "test" "chore" "revert" --cursor.foreground "#00FFFF")
+
+# prompts the user to input a scope using the gum input command,
 SCOPE=$(gum input --cursor.foreground "#00FFFF" --placeholder "scope")
 
+# checks if the SCOPE variable is not empty.
+# if it's not empty, it adds parentheses around the value and assigns it back to the SCOPE variable.
 test -n "$SCOPE" && SCOPE="($SCOPE)"
+
+# to input a summary for the change
 SUMMARY=$(gum input --cursor.foreground "#00FFFF" --value "$EZCOMMITS_TYPE$SCOPE: " --placeholder "Summary of this change")
+
+# to write a description for the change
+DESCRIPTION=$(gum write --cursor.foreground "#00FFFF" --placeholder "Details of this change (CTRL+D to finish)")
+
+# it confirms the changes
+gum confirm "Commit changes?" --selected.background="80" && git commit $SIGNED_OFF -m "$SUMMARY" -m "$DESCRIPTION" && echo -e "${Green}Successfully Commit Changes :)${NoColor}"
+
