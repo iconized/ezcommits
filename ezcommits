@@ -112,7 +112,7 @@ gum confirm "Add Signed Off by in the commit message body?" --selected.backgroun
 
 # Copy: https://github.com/charmbracelet/gum?tab=readme-ov-file#tutorial
 # prompts the user to choose a commit type from the given options using the gum choose command
-EZCOMMITS_TYPE=$(gum choose "🦾ci" "🎉init" "🐛fix" "✨feat" "📕docs" "🎨style" "⚡perf" "♻️refactor" "🧪test" "🗑️chore" "⏪revert" "🚧wip" "🔒security" --cursor.foreground "#00FFFF")
+EZCOMMITS_TYPE=$(gum choose ":construction_worker: ci" ":tada: init" ":bug: fix" ":sparkles: feat" ":books: docs" ":art: style" ":racehorse: perf" ":hammer: refactor" ":test_tube: test" ":wrench: chore" ":rewind: revert" ":construction: wip" ":lock: security" --cursor.foreground "#754ffe")
 
 # prompts the user to input a scope using the gum input command,
 SCOPE=$(gum input --cursor.foreground "#00FFFF" --placeholder "scope")
