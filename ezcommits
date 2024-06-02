@@ -49,7 +49,7 @@ INSTALL="$HOME/.ezcommits/bin/ezcommits"
 CURRENT_VERSION="v1.0.0"
 
 # defines the latest version of the ezcommits script.
-LATEST_VERSION="v1.0.0"
+LATEST_VERSION=$(curl -s https://api.github.com/repos/iconized/ezcommits/releases/latest | grep "tag_name" | cut -d '"' -f 4)
 
 # the script checks if an update is available and performs the update if necessary
 if [[ $1 == "--update" || $1 == "-u" ]]; then
@@ -66,9 +66,9 @@ if [[ $1 == "--update" || $1 == "-u" ]]; then
             # if it is, the script prompts the user to run the update command with sudo.
             echo -e "${Red}You must run this as sudo!"
             # downloads the latest version of the ezcommits script from GitHub and installs it in the specified installation path
-            curl -s https://raw.githubusercontent.com/iconized/ezcommits/master/ezcommits > "/usr/bin/ezcommits" && echo -e "${Green}Updated :)${NoColor}"
+            curl -s https://raw.githubusercontent.com/iconized/ezcommits/$LATEST_VERSION/ezcommits > "/usr/bin/ezcommits" && echo -e "${Green}Updated :)${NoColor}"
         else
-            curl -s https://raw.githubusercontent.com/iconized/ezcommits/master/ezcommits > $INSTALL && echo -e "${Green}Updated :)${NoColor}"
+            curl -s https://raw.githubusercontent.com/iconized/ezcommits/$LATEST_VERSION/ezcommits > $INSTALL && echo -e "${Green}Updated :)${NoColor}"
         fi
     fi
     # exits the script with a success status code
