@@ -3,7 +3,6 @@
 
 # define variables containing escape sequences for ANSI color codes
 # Documentation: https://gkarthiks.github.io/quick-commands-cheat-sheet/bash_command.html
-
 Black=''
 DarkGray=''
 LightGray=''
