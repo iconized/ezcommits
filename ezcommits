@@ -58,7 +58,7 @@ if [[ $1 == "--update" || $1 == "-u" ]]; then
         echo -e "${Green}Latest version is already installed :)"
     else
         echo -e "${Cyan}Update found! Version: ${LATEST_VERSION}"
-        echo -e "${Green}Updating [${CURRENT_VERSION}➜${LATEST_VERSION}]"
+        echo -e "${Green}Updating [${CURRENT_VERSION}➜ ${LATEST_VERSION}]"
 
         # checks if the ezcommits script is installed in the system-wide location /usr/bin/ezcommits. 
         if [[ $(which ezcommits) == "/usr/bin/ezcommits" ]]; then
@@ -97,7 +97,7 @@ if [[ $CURRENT_VERSION != $LATEST_VERSION ]]; then
     # if they are different, it informs the user that an update is available.
     echo "Update Found! ($LATEST_VERSION)"
     # informs the user how to update to the latest version if one is available.
-    echo -e "${White}ezcommits --update${NoColor} to install the latest version!"
+    echo -e "${Cyan}ezcommits --update${NoColor} to install the latest version!"
 fi
 
 # this variable will ask user whether the commit will be signed off or not.
